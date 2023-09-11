@@ -34,7 +34,7 @@ poetry run python install_models.py
 Nachdem Sie alle Abhängigkeiten installiert haben, können Sie das Hauptskript des Projekts ausführen mit:
 
 ```bash
-poetry Ontology_NLP.py
+poetry run python Ontology_NLP.py
 ```
 
 Viel Spaß beim Verwenden des Projekts!
