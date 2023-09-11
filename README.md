@@ -41,8 +41,7 @@ poetry run python Ontology_NLP.py
 
 Im Anschluss muss über den "Select OWL File" Button die AI4PD.owl Datei ausgewählt werden.
 
-Danach kann über das "Input Text" Feld eine Eingabe vorgenommen werden. 
-Über "Process Text" wird der eingegeben Text mit Hilfe von NLP analysiert und falls über OpenThesaurus Synonyme für die im Code festgelegten Worte gefunden werden, werden diese ersetzt.
+Danach kann über das "Input Text" Feld eine Eingabe vorgenommen werden.Über "Process Text" wird der eingegeben Text mit Hilfe von NLP analysiert und falls über OpenThesaurus Synonyme für die im Code festgelegten Worte gefunden werden, werden diese ersetzt.
 
 Zuletzt kann über den Button "Execute" die Query gestartet werden. 
 
