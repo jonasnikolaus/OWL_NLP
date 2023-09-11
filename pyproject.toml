@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "myproject"
+version = "0.0.0"
+description = "OWL NLP"
+authors = ["Jonas Nikolaus <jonas.nikolaus@icloud.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0.0"
+pysimplegui = "==4.60.5"
+rdflib = "==7.0.0"
+requests = "==2.31.0"
+spacy = "==3.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+install-models = 'install_models:main'
