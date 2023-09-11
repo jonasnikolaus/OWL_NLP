@@ -1,9 +1,9 @@
 
-# Mein Projekt
+# OWL NLP
 
 ## Einrichtung und Installation
 
-Bevor Sie das Projekt ausführen können, müssen Sie sicherstellen, dass [Poetry](https://python-poetry.org/docs/) installiert ist.
+Bevor Sie das Programm ausführen können, müssen Sie sicherstellen, dass [Poetry](https://python-poetry.org/docs/) installiert ist.
 
 ### Installation von Poetry
 
@@ -29,12 +29,22 @@ Nachdem Sie die Python-Abhängigkeiten installiert haben, müssen Sie das SpaCy-
 poetry run python install_models.py
 ```
 
-## Das Projekt ausführen
+## Das Programm ausführen
 
-Nachdem Sie alle Abhängigkeiten installiert haben, können Sie das Hauptskript des Projekts ausführen mit:
+Nachdem Sie alle Abhängigkeiten installiert haben, können Sie das Hauptskript des Programm ausführen mit:
 
 ```bash
 poetry run python Ontology_NLP.py
 ```
+
+## Das Programm benutzen
+
+Im Anschluss muss über den "Select OWL File" Button die AI4PD.owl Datei ausgewählt werden.
+
+Danach kann über das "Input Text" Feld eine Eingabe vorgenommen werden. 
+Über "Process Text" wird der eingegeben Text mit Hilfe von NLP analysiert und falls über OpenThesaurus Synonyme für die im Code festgelegten Worte gefunden werden, werden diese ersetzt.
+
+Zuletzt kann über den Button "Execute" die Query gestartet werden. 
+
 
 Viel Spaß beim Verwenden des Projekts!
