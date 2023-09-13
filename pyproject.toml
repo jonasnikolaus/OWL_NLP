@@ -5,7 +5,7 @@ description = "OWL NLP"
 authors = ["Jonas Nikolaus <jonas.nikolaus@icloud.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.11,<4.0.0"
+python = ">=3.10,<4.0.0"
 pysimplegui = "==4.60.5"
 rdflib = "==7.0.0"
 requests = "==2.31.0"
