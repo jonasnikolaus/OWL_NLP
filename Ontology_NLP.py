@@ -6,6 +6,7 @@ from rdflib.plugins.sparql import prepareQuery  # zum Vorbereiten von SPARQL-Abf
 import PySimpleGUI as sg  # für die GUI
 import os  # für Dateioperationen
 import requests  # für HTTP-Anfragen (z.B. API-Aufrufe)
+import re # für das aufteilen am String "und"
 
 # Funktion, um den spezifischen Teil des AI4PD-Namespace aus einem String zu extrahieren
 def extract_ai4pd_part(item):
@@ -161,6 +162,7 @@ def process_text():
 
     # Aufteilen des eingegebenen Texts in Segmente, getrennt durch "&"
     segments = current_values['input_text'].strip().lower().split('&')
+    segments = re.split(r'\b(?:&| und )\b', current_values['input_text'].strip().lower())
 
     # Listen zur Speicherung der erkannten Subjekte, Prädikate und Objekte für die spätere Erstellung der Query
     matched_subjects = []
