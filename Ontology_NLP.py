@@ -90,15 +90,24 @@ def nlp_query(matched_subjects, matched_predicates, matched_objects):
 # Funktion, um die SPARQL-Abfrage auszuführen und das Ergebnis im Textbereich anzuzeigen
 def execute_query():
     try:
-        # Die aktuelle Abfrage und der Wert im "Select"-Feld werden ausgelesen
+         # Die aktuelle Abfrage wird ausgelesen
         query = values['query_text'].strip()
-        select_value = values['input_select'].strip()
-        query = query.replace('*', select_value)
+        # Die SPARQL-Abfrage wird ausgeführt
+        results = graph.query(query)
+        # Vorbereitung der Ergebnistexte
         result_texts = []
-        
-        #Wenn „result_texts“ leer ist, wird „Keine Ergebnisse gefunden.“ ausgegeben
+        for result in results:
+            # Extrahieren des relevanten Teils des Ergebnis-Strings
+            result_text = str(result[0])
+            extracted_part = extract_ai4pd_part(result_text)
+            # Fügen Sie nur den extrahierten Teil zur Ergebnisliste hinzu, falls vorhanden
+            if extracted_part:
+                result_texts.append(extracted_part)
+
+        # Wenn keine Ergebnisse gefunden wurden
         if not result_texts:
             result_texts.append("Keine Ergebnisse gefunden.")
+        # Update des Ergebnisfeldes im GUI
         window['result_text'].update('\n'.join(result_texts))
     # Bei einem Fehler wird die Fehlermeldung im Ergebnisbereich ausgegeben
     except Exception as e:
@@ -238,6 +247,7 @@ def process_text():
 
 # Funktion, um eine OWL-Datei auszuwählen und die Dropdown-Menüs mit eindeutigen Subjekten, Prädikaten und Objekten zu füllen
 def select_owl_file():
+    global graph
     global owl_file_path # Globale Variable für den Dateipfad
     owl_file_path = sg.popup_get_file('Select OWL File', file_types=(("OWL Files", "*.owl"),))
     if owl_file_path:
