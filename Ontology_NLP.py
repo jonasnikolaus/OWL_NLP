@@ -133,6 +133,8 @@ def call_open_thesaurus_api(word):
 # Synonyme für die Ersetzung werden hier festgelegt
 hard_coded_synonyms = {
     "teil": "partof",
+    "eine": "a",
+    "ein":"a",
     # Weitere Synonyme hier hinzufügen
 }
 
@@ -161,8 +163,9 @@ def process_text():
     current_values = window.read()[1]  
 
     # Aufteilen des eingegebenen Texts in Segmente, getrennt durch "&"
-    segments = current_values['input_text'].strip().lower().split('&')
-    segments = re.split(r'\b(?:&| und )\b', current_values['input_text'].strip().lower())
+    #segments = current_values['input_text'].strip().lower().split('&')
+    segments = re.split(r'&|\bund\b', current_values['input_text'].strip().lower())
+
 
     # Listen zur Speicherung der erkannten Subjekte, Prädikate und Objekte für die spätere Erstellung der Query
     matched_subjects = []
