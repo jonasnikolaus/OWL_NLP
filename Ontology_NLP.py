@@ -308,6 +308,18 @@ def create_query():
 # Initialisierung des NLP-Modells
 nlp = spacy.load("de_core_news_sm")
 
+# Funktion zum Zurücksetzen aller Felder
+def reset_fields():
+    if sg.popup_ok_cancel("Alle Felder werden zurückgesetzt. Fortfahren?") == "OK":
+        window['input_select'].update("*")
+        window['dropdown_subject'].update(value='')
+        window['dropdown_predicate'].update(value='')
+        window['dropdown_object'].update(value='')
+        window['query_text'].update("")
+        window['result_text'].update("")
+        window['input_text'].update("")
+        window['output_text'].update("")
+
 # Definition des GUI-Layouts
 layout = [
     # Sektion für das Laden der OWL-Datei
@@ -325,7 +337,7 @@ layout = [
         [sg.Text("Object:", size=(8, 1)), sg.Combo([], size=(32, 1), key="dropdown_object")]
     ], vertical_alignment='top')],
     # Buttons zur Interaktion mit der SPARQL-Abfrage
-    [sg.Button("Zur Abfrage hinzufügen", key="add_to_query_button"), sg.Button("Abfrage ausführen", key="query_button", button_color=("white", "grey"), disabled=True)],
+    [sg.Button("Abfrage ausführen", key="query_button", button_color=("white", "grey"), disabled=True), sg.Button("Zur Abfrage hinzufügen", key="add_to_query_button"), sg.Button("Reset", key="reset_button", button_color=("white", "red"))],
     # Textfeld zur Anzeige der aktuellen SPARQL-Abfrage
     [sg.Multiline("", size=(50, 10), key="query_text")],
 
@@ -347,7 +359,7 @@ layout = [
     [sg.Multiline("", size=(50, 5), key="output_text")]
 ]
 
-# Haupt-GUI-Loop mit Ereignisbehandlung
+# Haupt-GUI-Loop
 window = sg.Window("SPARQL Query & NLP GUI", layout, resizable=True)
 
 while True:
@@ -357,13 +369,14 @@ while True:
         break
     elif event == "select_file_button":
         select_owl_file()
-        # Aktiviert den "Abfrage ausführen"-Button und ändert seine Farbe auf Grün, sobald eine Datei ausgewählt wurde
-        window['query_button'].update(disabled=False, button_color=("white", "green"))
+        window['query_button'].update(disabled=False, button_color=("white", "green"))  # Aktualisiert Farbe und Zustand des Knopfes
     elif event == "query_button":
         execute_query()
     elif event == "process_button":
         process_text()
+    elif event == "reset_button":
+        reset_fields()  # Setzt alle Felder zurück, nach Bestätigung durch den Benutzer
     elif event == "add_to_query_button":
-        create_query()
+        create_query()  # Fügt die ausgewählten Werte zur Abfrage hinzu
 
 window.close()
