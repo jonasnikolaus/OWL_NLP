@@ -329,7 +329,7 @@ layout = [
     # Textfeld für die NLP-Eingabe
     [sg.Multiline("", size=(50, 5), key="result_text")],
     [sg.Text("Input Text:")],
-    [sg.Multiline("Assoziation Bestandteil Assoziation & Hund Katze Maus", size=(50, 5), key="input_text")],
+    [sg.Multiline("?individual Bestandteil Developmentteam und ?individual eine person", size=(50, 5), key="input_text")],
     # Button für die Verarbeitung des Texts
     [sg.Button("Process Text", key="process_button")],
     # Textfeld für die NLP-Ausgabe
