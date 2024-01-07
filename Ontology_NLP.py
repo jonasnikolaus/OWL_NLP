@@ -310,54 +310,60 @@ nlp = spacy.load("de_core_news_sm")
 
 # Definition des GUI-Layouts
 layout = [
-    # Textfeld für die SPARQL-Abfrage
-    [sg.Text("SPARQL Query:")],
+    # Sektion für das Laden der OWL-Datei
+    [sg.Text("Datei auswählen und laden:", font=("Helvetica", 12, "bold"))],
+    # Button zum Auswählen der OWL-Datei und Textfeld zur Anzeige des ausgewählten Dateinamens
+    [sg.Button("OWL-Datei auswählen", key="select_file_button", button_color=("white", "blue")), sg.Text("Keine Datei ausgewählt", size=(40, 1), key="selected_file_label")],
+
+    # Sektion für die Erstellung der SPARQL-Abfrage
+    [sg.Text("SPARQL-Abfrage erstellen:", font=("Helvetica", 12, "bold"))],
+    # Spaltenstruktur zur Ausrichtung der Eingabefelder
+    [sg.Column([
+        [sg.Text("Select:", size=(8, 1)), sg.InputText("*", size=(32, 1), key="input_select")],
+        [sg.Text("Subject:", size=(8, 1)), sg.Combo([], size=(32, 1), key="dropdown_subject")],
+        [sg.Text("Predicate:", size=(8, 1)), sg.Combo([], size=(32, 1), key="dropdown_predicate")],
+        [sg.Text("Object:", size=(8, 1)), sg.Combo([], size=(32, 1), key="dropdown_object")]
+    ], vertical_alignment='top')],
+    # Buttons zur Interaktion mit der SPARQL-Abfrage
+    [sg.Button("Zur Abfrage hinzufügen", key="add_to_query_button"), sg.Button("Abfrage ausführen", key="query_button", button_color=("white", "grey"), disabled=True)],
+    # Textfeld zur Anzeige der aktuellen SPARQL-Abfrage
     [sg.Multiline("", size=(50, 10), key="query_text")],
-    # Button für die Auswahl einer OWL-Datei
-    [sg.Button("Select OWL File", key="select_file_button")],
-    [sg.Text("No File Selected", size=(40, 1), key="selected_file_label")],
-    # Eingabefeld für das SELECT-Statement in SPARQL
-    [sg.Text("Select:"), sg.InputText("*", size=(40, 1), key="input_select")],
-    # Dropdown-Menüs für Subjekte, Prädikate und Objekte
-    [sg.Text("Subject:"), sg.Combo([], size=(40, 1), key="dropdown_subject", enable_events=True)],
-    [sg.Text("Predicate:"), sg.Combo([], size=(40, 1), key="dropdown_predicate", enable_events=True)],
-    [sg.Text("Object:"), sg.Combo([], size=(40, 1), key="dropdown_object", enable_events=True)],
-    # Buttons für die Abfrageausführung und zum Hinzufügen zur Abfrage
-    [sg.Button("Add to Query", key="add_to_query_button"), sg.Button("Execute", key="query_button")],
-    # Textfeld für die Ergebnisse der Abfrage
-    [sg.Text("Query Result:")],
-    # Textfeld für die NLP-Eingabe
+
+    # Sektion für die Ergebnisanzeige
+    [sg.Text("Ergebnisse der Abfrage:", font=("Helvetica", 12, "bold"))],
+    # Textfeld zur Anzeige der Ergebnisse der SPARQL-Abfrage
     [sg.Multiline("", size=(50, 5), key="result_text")],
-    [sg.Text("Input Text:")],
+
+    # Sektion für die Verarbeitung natürlicher Spracheingabe
+    [sg.Text("Natürliche Spracheingabe verarbeiten:", font=("Helvetica", 12, "bold"))],
+    # Textfeld für die Eingabe des Textes in natürlicher Sprache
     [sg.Multiline("?individual Bestandteil Developmentteam und ?individual eine person", size=(50, 5), key="input_text")],
-    # Button für die Verarbeitung des Texts
-    [sg.Button("Process Text", key="process_button")],
-    # Textfeld für die NLP-Ausgabe
-    [sg.Text("Output:")],
+    # Button zur Verarbeitung des eingegebenen Textes
+    [sg.Button("Text verarbeiten", key="process_button")],
+
+    # Sektion für die Anzeige der Verarbeitungsergebnisse
+    [sg.Text("Verarbeitungsergebnisse:", font=("Helvetica", 12, "bold"))],
+    # Textfeld zur Anzeige der Ergebnisse der Textverarbeitung
     [sg.Multiline("", size=(50, 5), key="output_text")]
 ]
 
-# Haupt-GUI-Loop
-window = sg.Window("SPARQL Query & NLP GUI", layout)
+# Haupt-GUI-Loop mit Ereignisbehandlung
+window = sg.Window("SPARQL Query & NLP GUI", layout, resizable=True)
 
 while True:
     event, values = window.read()
 
-    # Schließen des Fensters
     if event == sg.WINDOW_CLOSED:
         break
-    # Ausführen der SPARQL-Abfrage
-    elif event == "query_button":
-        execute_query()
-    # Verarbeiten des Textes mit NLP    
-    elif event == "process_button":
-        process_text()
-    # Auswählen der OWL-Datei 
     elif event == "select_file_button":
         select_owl_file()
-    # Hinzufügen zur SPARQL-Abfrage
+        # Aktiviert den "Abfrage ausführen"-Button und ändert seine Farbe auf Grün, sobald eine Datei ausgewählt wurde
+        window['query_button'].update(disabled=False, button_color=("white", "green"))
+    elif event == "query_button":
+        execute_query()
+    elif event == "process_button":
+        process_text()
     elif event == "add_to_query_button":
         create_query()
 
-# Schließen des Fensters und Beenden der Anwendung
 window.close()
