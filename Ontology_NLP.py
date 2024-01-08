@@ -320,6 +320,41 @@ def reset_fields():
         window['input_text'].update("")
         window['output_text'].update("")
 
+# Funktion zum Anzeigen der SPARQL-Syntax-Hilfe
+def show_sparql_help():
+    # Text mit den wichtigsten SPARQL-Syntax-Regeln
+    help_text = """
+    Wichtigste SPARQL Syntax-Regeln:
+
+    1. Grundstruktur:
+       - SELECT: Zum Auswählen von Variablen.
+       - WHERE: Um Muster zu definieren, die mit den Daten übereinstimmen müssen.
+       - PREFIX: Zum Definieren von Abkürzungen für URIs.
+
+    2. Muster in WHERE:
+       - Tripel-Muster: (subjekt prädikat objekt).
+       - OPTIONAL: Für optionale Muster.
+       - FILTER: Zum Filtern von Ergebnissen basierend auf Bedingungen.
+
+    3. Variablen:
+       - Werden mit einem vorangestellten '?' oder '$' gekennzeichnet.
+
+    4. Aggregationsfunktionen:
+       - COUNT, SUM, MIN, MAX, AVG: Zur Durchführung statistischer Berechnungen.
+
+    5. Sortierung und Gruppierung:
+       - ORDER BY: Zum Sortieren der Ergebnisse.
+       - GROUP BY: Zum Gruppieren der Ergebnisse.
+
+    6. Subqueries:
+       - Ermöglicht das Verschachteln von Abfragen.
+
+    Weitere Details finden Sie in der SPARQL-Dokumentation.
+    """
+    # Anzeigen des Hilfetextes in einem Popup-Fenster
+    sg.popup_scrolled(help_text, title="SPARQL Syntax Hilfe", size=(50, 10))
+
+
 # Definition des GUI-Layouts
 layout = [
     # Sektion für das Laden der OWL-Datei
@@ -337,7 +372,10 @@ layout = [
         [sg.Text("Object:", size=(8, 1)), sg.Combo([], size=(32, 1), key="dropdown_object")]
     ], vertical_alignment='top')],
     # Buttons zur Interaktion mit der SPARQL-Abfrage
-    [sg.Button("Abfrage ausführen", key="query_button", button_color=("white", "grey"), disabled=True), sg.Button("Zur Abfrage hinzufügen", key="add_to_query_button"), sg.Button("Reset", key="reset_button", button_color=("white", "red"))],
+    [sg.Button("Zur Abfrage hinzufügen", key="add_to_query_button"), 
+     sg.Button("Abfrage ausführen", key="query_button", button_color=("white", "grey"), disabled=True),
+     sg.Button("SPARQL Syntax", key="sparql_help_button"),
+     sg.Button("Reset", key="reset_button", button_color=("white", "red"))],
     # Textfeld zur Anzeige der aktuellen SPARQL-Abfrage
     [sg.Multiline("", size=(50, 10), key="query_text")],
 
@@ -374,6 +412,9 @@ while True:
         execute_query()
     elif event == "process_button":
         process_text()
+    elif event == "sparql_help_button":
+        # Funktion zum Anzeigen der SPARQL-Syntax-Hilfe
+        show_sparql_help()
     elif event == "reset_button":
         reset_fields()  # Setzt alle Felder zurück, nach Bestätigung durch den Benutzer
     elif event == "add_to_query_button":
