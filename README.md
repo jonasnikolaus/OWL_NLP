@@ -1,5 +1,7 @@
 
-# OWL NLP
+# OWL NLP GUI-Anwendung
+
+Diese Anwendung ermöglicht die Verarbeitung und Analyse von RDF-Graphen (Resource Description Framework) in OWL (Web Ontology Language) und die Erstellung von SPARQL-Abfragen (SPARQL Protocol and RDF Query Language) durch natürliche Spracheingabe und GUI-Interaktion.
 
 ## Einrichtung und Installation
 
@@ -39,11 +41,25 @@ poetry run python Ontology_NLP.py
 
 ## Das Programm benutzen
 
-Im Anschluss muss über den "Select OWL File" Button die AI4PD.owl Datei ausgewählt werden.
+## Anwendung nutzen
 
-Danach kann über das "Input Text" Feld eine Eingabe vorgenommen werden.Über "Process Text" wird der eingegeben Text mit Hilfe von NLP analysiert und falls über OpenThesaurus Synonyme für die im Code festgelegten Worte gefunden werden, werden diese ersetzt.
+1. **Laden einer OWL-Datei:**
+   - Verwenden Sie den "OWL-Datei auswählen" Button, um eine OWL-Datei zu laden. 
 
-Zuletzt kann über den Button "Execute" die Query gestartet werden. 
+2. **Natürliche Spracheingabe verarbeiten:**
+   - Geben Sie Text im "Input Text" Feld ein und klicken Sie auf "Text verarbeiten". 
+   - Die Anwendung analysiert den Text und generiert eine SPARQL-Abfrage basierend auf NLP (Natural Language Processing). Falls über OpenThesaurus Synonyme für die im Code festgelegten Worte gefunden werden, werden diese ersetzt.
+
+3. **SPARQL-Abfrage erstellen und ausführen:**
+   - Erstellen Sie eine SPARQL-Abfrage über das GUI, indem Sie Werte aus den Dropdown-Menüs auswählen und auf "Zur Abfrage hinzufügen" klicken.
+   - Führen Sie die Abfrage durch Klicken auf "Abfrage ausführen" aus.
+
+4. **Erhaltene Ergebnisse:**
+   - Die Ergebnisse der Abfrage werden im "Ergebnisse der Abfrage" Feld angezeigt.
+
+5. **Zusätzliche Funktionen:**
+   - Nutzen Sie die "Reset" Funktion, um alle Eingabefelder zurückzusetzen.
+   - Für Hilfestellungen zur SPARQL-Syntax klicken Sie auf "SPARQL Syntax".
 
 
 Viel Spaß beim Verwenden des Projekts!
