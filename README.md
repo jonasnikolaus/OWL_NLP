@@ -41,8 +41,6 @@ poetry run python Ontology_NLP.py
 
 ## Das Programm benutzen
 
-## Anwendung nutzen
-
 1. **Laden einer OWL-Datei:**
    - Verwenden Sie den "OWL-Datei auswählen" Button, um eine OWL-Datei zu laden. 
 
